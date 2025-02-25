@@ -5,44 +5,55 @@ let ctx = canvas.getContext("2d");
 ctx.fillStyle = "blue";
 // ctx.fillRect(10,10,100,100)
 
-let gamestarted=false
-let direction=""
+const box=20;
+
+let snake=[{x:10*box,y:10*box},{x:9*box,y:10*box}];
+let flood = {
+    x: Math.floor(Math.random()*20)*box,
+    y: Math.floor(Math.random()*20)*box
+}
+let gameStarted=false
+let gameOver=false
+let direction="droite"
 
 document.addEventListener("keydown", event => {
     console.log("keydown " + event.key)
 
-    if(!gamestarted && event.key === " "){
+    if(!gameStarted && event.key === " "){
         // démarre le jeux
-        gamestarted=true
+        gameStarted=true
         ctx.clearRect(0,0,canvas.width,canvas.height)
         ctx.fillText("jeu démarré",10,50)
     }
 
-    if(event.key === "ArrowLeft")
-    {
-        direction="gauche"
-        gameloop();
-    }
-
+    if(event.key === "ArrowLeft") direction="gauche"
     if(event.key === "ArrowRight") direction="droite"
-    if(event.key === "ArrowDown") direction=""
-    if(event.key === "ArrowUp") direction=""
+    if(event.key === "ArrowDown") direction="descent"
+    if(event.key === "ArrowUp") direction="monte"
 
     
 });
 
-
+/** redessine le jeux */
 function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height)
+    ctx.fillText(direction,10,50)
+}
+
+/** met a jour les donnée du serpent de la pomme et si la partie est fini */
+function update(){
 
 }
 
 
-
 function gameloop() {
     console.log("gameloop")
-    if(gamestarted){
-        ctx.clearRect(0,0,canvas.width,canvas.height)
-        ctx.fillText(direction,10,50)
+    if(gameStarted){
+        update()
+        draw()
+        if(!gameOver){
+            setTimeout(gameloop,100)
+        }
 
         console.log("game direction" + direction)
 
