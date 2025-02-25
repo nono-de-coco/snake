@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Snake</title>
+  <style>
+    body {
+      background-color: #750000;
+      color: #fff;
+      font-family: monospace;
+      font-size: 1.5em;
+      text-align: center;
+    }
+    canvas {
+      display: block;
+      margin: 0 auto;
+      background-color: #000;
+    }
+  </style>
+
+<body>
+  <canvas width="300" height="500">
+    Désolé, votre navigateur ne prend pas en charge &lt;canvas&gt;.
+  </canvas>
+<script>
+  // let counter = 2;
+  // console.log("bonjour " + counter);
+  let canvas = document.querySelector("canvas");
+  let ctx = canvas.getContext("2d");
+  ctx.fillStyle = "blue";
+  ctx.fillRect(10,10,100,100)
+</script>
+
+</body>
+
+</html>
