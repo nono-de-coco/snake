@@ -53,8 +53,6 @@ function draw() {
     ctx.strokeStyle="red"
     ctx.strokeRect(snake[i].x,snake[i].y,box, box)
 
-    let snakeX = snake[0].x
-    let snakeY = snake[0].y
     
     }    
     
