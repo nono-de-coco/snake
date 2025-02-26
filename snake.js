@@ -41,21 +41,20 @@ document.addEventListener("keydown", event => {
 function draw() {
     //je veux effacer le tableau de jeu
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    
+
     //afficher la pommex,y    ctx.fillStyle("red")
-    ctx.fillRect(apple.x,apple.y, box, box)
-    ctx.fillSyle("red")
+    ctx.fillRect(apple.x, apple.y, box, box)
+    ctx.fillStyle("red")
+
     //je veux afficher le serpent
     for (let i = 0; i < snake.length; i++) {
         // afficher le corp du serpent
-    ctx.fillStyle("green")
-    ctx.fillRect(snake[i].x,snake[i].y,box, box)
-    ctx.strokeStyle="red"
-    ctx.strokeRect(snake[i].x,snake[i].y,box, box)
+        ctx.fillStyle("green")
+        ctx.fillRect(snake[i].x, snake[i].y, box, box)
+        ctx.strokeStyle = "red"
+        ctx.strokeRect(snake[i].x, snake[i].y, box, box)
+    }
 
-    
-    }    
-    
     let snakeX = snake[0].x
     let snakeY = snake[0].y
     ctx.fillText(direction, 10, 50)
