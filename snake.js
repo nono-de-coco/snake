@@ -41,18 +41,52 @@ document.addEventListener("keydown", event => {
 function draw() {
     //je veux effacer le tableau de jeu
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    
-    //afficher la pommex,y    ctx.fillStyle("red")
-    ctx.fillRect(apple.x,apple.y, box, box)
-    //je veux afficher le serpent
 
+    //afficher la pomme
+    ctx.fillRect(apple.x, apple.y, box, box)
+    //je veux afficher le serpent
+    // snake.length --> taille du tbleau contenant les élement du serpent
+    for (let i = 0; i < snake.length; i++) {
+        //
+        if (i === 0) {
+            ctx.fillStyle = "lime"; // on met une couleur pour la tête
+        } else if (i == (snake.length - 1)) {
+            ctx.fillStyle = "#330066"; // on met une couleur pour la pointe de la queue
+        }
+        else {
+            ctx.fillStyle = "green"; // on met une couleur pour le corp
+        }
+
+        ctx.fillRect(snake[i].x, snake[i].y, box, box); // on affiche le rectangle qui est une partie du serpent
+    }
 
     ctx.fillText(direction, 10, 50)
 }
 
 /** met a jour les donnée du serpent de la pomme et si la partie est fini */
 function update() {
+    let head = { x: snake[0].x, y: snake[0].y };
+    if (direction === "gauche") head.x -= box; // on soustrait de la valeur de x la taille d'une box (20px) comme si on x=x-box
+    if (direction === "droite") head.x += box;
+    if (direction === "descent") head.y += box;
+    if (direction === "monte") head.y -= box;
 
+    if (head.x === food.x && head.y === food.y) {
+        food = {
+            x: Math.floor(Math.random() * 20) * box,
+            y: Math.floor(Math.random() * 20) * box,
+        };
+    } else {
+        snake.pop();
+    }
+
+    if (head.x < 0 || head.y < 0 || head.x >= canvas.width || head.y >= canvas.height ||
+        snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+        gameOver = true;
+        gameRunning = false;
+    }
+
+    snake.unshift(head);
 }
 
 
