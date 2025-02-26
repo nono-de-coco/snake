@@ -2,7 +2,7 @@
 // console.log("bonjour " + counter);
 let canvas = document.querySelector("canvas");
 let ctx = canvas.getContext("2d");
-ctx.fillStyle = "blue";
+ctx.fillStyle = "green";
 // ctx.fillRect(10,10,100,100)
 
 const box = 20;
@@ -48,10 +48,13 @@ function draw() {
     //je veux afficher le serpent
     for (let i = 0; i < snake.length; i++) {
         // afficher le corp du serpent
-    ctx.fillStyle = (1==0) ?"blue":"white"
-    ctx.fillRect(snake[i].x, snake[i].y,box, box)
+    ctx.fillStyle("green")
+    ctx.fillRect(snake[i].x,snake[i].y,box, box)
     ctx.strokeStyle="red"
-    ctx.strokeRect(snake[1].x,snake[i].y,box, box)
+    ctx.strokeRect(snake[i].x,snake[i].y,box, box)
+
+    
+    
     }    
     
     let snakeX = snake[0].x
