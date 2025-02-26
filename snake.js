@@ -44,9 +44,18 @@ function draw() {
     
     //afficher la pommex,y    ctx.fillStyle("red")
     ctx.fillRect(apple.x,apple.y, box, box)
+    ctx.fillSyle("red")
     //je veux afficher le serpent
-
-
+    for (let i = 0; i < snake.length; i++) {
+        // afficher le corp du serpent
+    ctx.fillStyle = (1==0) ?"blue":"white"
+    ctx.fillRect(snake[i].x, snake[i].y,box, box)
+    ctx.strokeStyle="red"
+    ctx.strokeRect(snake[1].x,snake[i].y,box, box)
+    }    
+    
+    let snakeX = snake[0].x
+    let snakeY = snake[0].y
     ctx.fillText(direction, 10, 50)
 }
 
