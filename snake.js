@@ -18,18 +18,19 @@ let direction="droite"
 
 document.addEventListener("keydown", event => {
     console.log("keydown " + event.key)
-
     if(!gameStarted && event.key === " "){
-        // démarre le jeux
+        // démarre le jeux si on press la touche espace
         gameStarted=true
-        ctx.clearRect(0,0,canvas.width,canvas.height)
-        ctx.fillText("jeu démarré",10,50)
+        gameOver=false
+        gameloop()
+        // ctx.clearRect(0,0,canvas.width,canvas.height)
+        // ctx.fillText("jeu démarré",10,50)
     }
 
-    if(event.key === "ArrowLeft") direction="gauche"
-    if(event.key === "ArrowRight") direction="droite"
-    if(event.key === "ArrowDown") direction="descent"
-    if(event.key === "ArrowUp") direction="monte"
+    if(event.key === "ArrowLeft" && direction !== "droite") direction="gauche"
+    if(event.key === "ArrowRight" && direction !== "gauche") direction="droite"
+    if(event.key === "ArrowDown"  && direction !== "monte") direction="descent"
+    if(event.key === "ArrowUp" && direction !== "descent") direction="monte"
 
     
 });
