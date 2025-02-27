@@ -50,7 +50,7 @@ function draw() {
     // i++ --> i=i+1 --> i+=1
     for (let i = 0; i < snake.length; i++) {
         // afficher le corp du serpent
-        ctx.fillStyle= "green"
+        ctx.fillStyle = "green"
         ctx.fillRect(snake[i].x, snake[i].y, box, box)
         ctx.strokeStyle = "red"
         ctx.strokeRect(snake[i].x, snake[i].y, box, box)
@@ -63,25 +63,31 @@ function draw() {
 
 /** met a jour les donnée du serpent de la pomme et si la partie est fini */
 function update() {
-
-}
-
-
-function gameloop() {
-    console.log("gameloop")
-    if (gameStarted) {
-        update()
-        draw()
-        if (!gameOver) {
-            setTimeout(gameloop, 100)
-        }
-
-        console.log("game direction" + direction)
-
-    } else {
-        ctx.font = "24px serif"
-        ctx.fillText("press space to launch", 10, 50)
+    let head = {
+        x: snake[0].x, y: snake[0].y
     }
+    if(direction === "droite") head.x=head.x+box
+    if(direction === "gauche") head.x=head.x-box
+    if(direction === "monte") head.y=head.y-box
+    if(direction === "descent") head.y=head.y+box
+    
 }
 
-gameloop();
+    function gameloop() {
+        console.log("gameloop")
+        if (gameStarted) {
+            update()
+            draw()
+            if (!gameOver) {
+                setTimeout(gameloop, 100)
+            }
+
+            console.log("game direction" + direction)
+
+        } else {
+            ctx.font = "24px serif"
+            ctx.fillText("press space to launch", 10, 50)
+        }
+    }
+
+    gameloop();
