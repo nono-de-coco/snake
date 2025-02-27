@@ -66,28 +66,65 @@ function update() {
     let head = {
         x: snake[0].x, y: snake[0].y
     }
-    if(direction === "droite") head.x=head.x+box
-    if(direction === "gauche") head.x=head.x-box
-    if(direction === "monte") head.y=head.y-box
-    if(direction === "descent") head.y=head.y+box
-    
-}
 
-    function gameloop() {
-        console.log("gameloop")
-        if (gameStarted) {
-            update()
-            draw()
-            if (!gameOver) {
-                setTimeout(gameloop, 100)
-            }
 
-            console.log("game direction" + direction)
+    /**
+     *  (0,0)
+     *      +--------------------------------+
+     *      |                                |
+     *      |                                |
+     *      |                                |
+     *      |                                |
+     *      |                                |
+     *      +--------------------------------+ (width, height)
+     *  1 Pas = taille de la box (20px)
+     */
 
-        } else {
-            ctx.font = "24px serif"
-            ctx.fillText("press space to launch", 10, 50)
+    // on avance sur la grille
+    if (direction === "droite") head.x = head.x + box
+    // on recule sur la grille
+    if (direction === "gauche") head.x = head.x - box
+    if (direction === "monte") head.y = head.y - box
+    if (direction === "descent") head.y = head.y + box
+
+    // On test si la tête est sur la pomme
+    if( head.x === apple.x && head.y === apple.y){
+        // le serpent mange la pomme
+        // je peux incrementer le score
+
+        apple = {
+            x: Math.floor(Math.random() * 20) * box,
+            y: Math.floor(Math.random() * 20) * box,
         }
+    } else {
+        // sur un tableau la fonction pop enlève la dernière valeur du tableau
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/pop
+        snake.pop()
     }
 
-    gameloop();
+    // collision avec les bords du jeux , mais aussi les collision avec avec le reste du serpent
+
+
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift
+    // unshift methode d'un tableau qui  permetd'ajouter un element au debut du tableau
+    snake.unshift(head)
+}
+
+function gameloop() {
+    console.log("gameloop")
+    if (gameStarted) {
+        update()
+        draw()
+        if (!gameOver) {
+            setTimeout(gameloop, 100)
+        }
+
+        console.log("game direction" + direction)
+
+    } else {
+        ctx.font = "24px serif"
+        ctx.fillText("press space to launch", 10, 50)
+    }
+}
+
+gameloop();
