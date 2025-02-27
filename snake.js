@@ -72,9 +72,9 @@ function update() {
      *  (0,0)
      *      +--------------------------------+
      *      |                                |
-     *      |                                |
-     *      |                                |
-     *      |                                |
+     *      |         *****                  |
+     *      |           ^ *                  |
+     *      |           ***                  |
      *      |                                |
      *      +--------------------------------+ (width, height)
      *  1 Pas = taille de la box (20px)
@@ -102,9 +102,33 @@ function update() {
         snake.pop()
     }
 
-    // collision avec les bords du jeux , mais aussi les collision avec avec le reste du serpent
+    // collision avec les bords du jeux , mais aussi les collisions avec avec le reste du serpent
+    // || c'est ou logique
+    // && c'est et logique
 
+    /* version longue de detection que la tête touche le corp*/
+    let corpTouche = false
+    for( let i=0; i< snake.length;i++)
+    {
+        let corp = snake[i];
+        if(head.x === corp.x && head.y === corp.y){
+            corpTouche = true
+            break;
+        }
+    }
 
+    if( head.x < 0 ||
+        head.x > canvas.width ||
+        head.y > canvas.height ||
+        head.y < canvas.height || 
+        corpTouche 
+        /*snake.some(corp => head.x === corp.x && head.y === corp.y)*/
+    ) {
+            // on a perdu
+        gameStarted = false
+        gameOver = true
+    }
+   
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift
     // unshift methode d'un tableau qui  permetd'ajouter un element au debut du tableau
     snake.unshift(head)
@@ -124,6 +148,9 @@ function gameloop() {
     } else {
         ctx.font = "24px serif"
         ctx.fillText("press space to launch", 10, 50)
+        if(gameOver) {
+            ctx.fillText("Partie perdu", 10, 20)
+        }
     }
 }
 
