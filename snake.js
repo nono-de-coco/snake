@@ -47,6 +47,7 @@ function draw() {
     ctx.fillRect(apple.x, apple.y, box, box)
 
     //je veux afficher le serpent
+    // i++ --> i=i+1 --> i+=1
     for (let i = 0; i < snake.length; i++) {
         // afficher le corp du serpent
         ctx.fillStyle= "green"
