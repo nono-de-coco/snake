@@ -106,25 +106,24 @@ function update() {
     // || c'est ou logique
     // && c'est et logique
 
-    /* version longue de detection que la tête touche le corp*/
-    let corpTouche = false
-    for( let i=0; i< snake.length;i++)
-    {
-        let corp = snake[i];
-        if(head.x === corp.x && head.y === corp.y){
-            corpTouche = true
-            break;
-        }
-    }
+    // version longue de detection que la tête touche le corp
+    // let corpTouche = false
+    // for( let i=0; i< snake.length;i++)
+    // {
+    //     let corp = snake[i];
+    //     if(head.x === corp.x && head.y === corp.y){
+    //         corpTouche = true
+    //         break;
+    //     }
+    // }
 
     if( head.x < 0 ||
         head.x > canvas.width ||
         head.y > canvas.height ||
         head.y < canvas.height || 
-        corpTouche 
-        /*snake.some(corp => head.x === corp.x && head.y === corp.y)*/
+        snake.some(corp => head.x === corp.x && head.y === corp.y)
     ) {
-            // on a perdu
+        // on a perdu
         gameStarted = false
         gameOver = true
     }
@@ -148,9 +147,9 @@ function gameloop() {
     } else {
         ctx.font = "24px serif"
         ctx.fillText("press space to launch", 10, 50)
-        if(gameOver) {
-            ctx.fillText("Partie perdu", 10, 20)
-        }
+        // if(gameOver) {
+        //     ctx.fillText("Partie perdu", 10, 20)
+        // }
     }
 }
 
