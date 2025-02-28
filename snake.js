@@ -5,7 +5,12 @@ let ctx = canvas.getContext("2d");
 ctx.fillStyle = "blue";
 // ctx.fillRect(10,10,100,100)
 
-const box = 20;
+const box = 20; // taille d'un carré pour afficher une ponne ou un element du corp la valeur est en pixel
+
+// evolution pour le jeux
+// 1 - mettre une variable qui compte le nombre de pomme mangé
+// 2 - quand on a mangé un certain nombre de pomme on augmente la vitesse du serpent
+
 
 //création du corp du serpent
 let snake = [{ x: 10 * box, y: 10 * box }, { x: 9 * box, y: 10 * box }];
@@ -14,6 +19,7 @@ let apple = {
     x: Math.floor(Math.random() * 20) * box,
     y: Math.floor(Math.random() * 20) * box,
 }
+
 let gameStarted = false
 let gameOver = false
 let direction = "droite"
@@ -107,21 +113,22 @@ function update() {
     // && c'est et logique
 
     // version longue de detection que la tête touche le corp
-    // let corpTouche = false
-    // for( let i=0; i< snake.length;i++)
-    // {
-    //     let corp = snake[i];
-    //     if(head.x === corp.x && head.y === corp.y){
-    //         corpTouche = true
-    //         break;
-    //     }
-    // }
+    let corpTouche = false
+    for( let i=0; i< snake.length;i++)
+    {
+        let corp = snake[i];
+        if(head.x === corp.x && head.y === corp.y){
+            corpTouche = true
+            break;
+        }
+    }
 
     if( head.x < 0 ||
-        head.x > canvas.width ||
-        head.y > canvas.height ||
-        head.y < canvas.height || 
-        snake.some(corp => head.x === corp.x && head.y === corp.y)
+        head.x >= canvas.width ||
+        head.y >= canvas.height ||
+        head.y < 0 ||
+        corpTouche
+        //snake.some(corp => head.x === corp.x && head.y === corp.y)
     ) {
         // on a perdu
         gameStarted = false
@@ -138,18 +145,14 @@ function gameloop() {
     if (gameStarted) {
         update()
         draw()
-        if (!gameOver) {
-            setTimeout(gameloop, 100)
-        }
-
+        setTimeout(gameloop, 100)
         console.log("game direction" + direction)
-
     } else {
         ctx.font = "24px serif"
         ctx.fillText("press space to launch", 10, 50)
-        // if(gameOver) {
-        //     ctx.fillText("Partie perdu", 10, 20)
-        // }
+        if(gameOver) {
+            ctx.fillText("Partie perdu", 10, 20)
+        }
     }
 }
 
