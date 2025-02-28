@@ -9,8 +9,9 @@ const box = 20; // taille d'un carré pour afficher une ponne ou un element du c
 
 // evolution pour le jeux
 // 1 - mettre une variable qui compte le nombre de pomme mangé
+let nombre_pomme_mange = 0
 // 2 - quand on a mangé un certain nombre de pomme on augmente la vitesse du serpent
-
+let vitesse_sepent = 100
 
 //création du corp du serpent
 let snake = [{ x: 10 * box, y: 10 * box }, { x: 9 * box, y: 10 * box }];
@@ -63,7 +64,12 @@ function draw() {
     // i++ --> i=i+1 --> i+=1
     for (let i = 0; i < snake.length; i++) {
         // afficher le corp du serpent
-        ctx.fillStyle = "green"
+        if (i === 0) {
+            ctx.fillStyle = "green"
+        } else {
+            ctx.fillStyle = "lime"
+        }
+
         ctx.fillRect(snake[i].x, snake[i].y, box, box)
         ctx.strokeStyle = "red"
         ctx.strokeRect(snake[i].x, snake[i].y, box, box)
@@ -71,7 +77,7 @@ function draw() {
 
     let snakeX = snake[0].x
     let snakeY = snake[0].y
-    ctx.fillText(direction, 10, 50)
+    ctx.fillText( score: ${nombre_pomme_mange} , 0, 0)
 }
 
 /** met a jour les donnée du serpent de la pomme et si la partie est fini */
@@ -103,8 +109,12 @@ function update() {
     // On test si la tête est sur la pomme
     if (head.x === apple.x && head.y === apple.y) {
         // le serpent mange la pomme
+        nombre_pomme_mange++
         // je peux incrementer le score
-
+        if((nombre_pomme_mange % 10) == 0 )  {
+            // pour toute les 10 aine de pomme manger on augmente la vitesse
+            vitesse_sepent = vitesse_sepent + 10
+        }
         apple = {
             x: Math.floor(Math.random() * 20) * box,
             y: Math.floor(Math.random() * 20) * box,
@@ -151,7 +161,7 @@ function gameloop() {
     if (gameStarted) {
         update()
         draw()
-        setTimeout(gameloop, 100)
+        setTimeout(gameloop, vitesse_sepent)
         console.log("game direction" + direction)
     } else {
         ctx.font = "24px serif"
