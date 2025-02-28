@@ -77,7 +77,7 @@ function draw() {
 
     let snakeX = snake[0].x
     let snakeY = snake[0].y
-    ctx.fillText( score: ${nombre_pomme_mange} , 0, 0)
+    ctx.fillText(`score: ${nombre_pomme_mange}`, 0, 0)
 }
 
 /** met a jour les donnée du serpent de la pomme et si la partie est fini */
